@@ -1,0 +1,24 @@
+{
+  "name": "iresha-surge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ireshaprabodhani/Iresha-Surge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ireshaprabodhani/Iresha-Surge/issues"
+  },
+  "homepage": "https://github.com/Ireshaprabodhani/Iresha-Surge#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  }
+}
