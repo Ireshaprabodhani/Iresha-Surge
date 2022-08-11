@@ -5,18 +5,22 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+
 const connectDB = async () => {
     try {
 
        
-        const conn = await mongoose.connect(process.env.MONGO_URI,
-            {
-                useUnifiedTopology: true,
-                useNewUrlParser: true,
-                useCreateIndex: true,
-            });
+        // const conn = await mongoose.connect(
+        //     {
+        //         useUnifiedTopology: true,
+        //         useNewUrlParser: true,
+                
+        //     });
 
-        console.log(`MongoDB Connected : ${conn.connection.host} `);
+        const conn = await mongoose.connect("mongodb+srv://userIresha99:UserIresha99@cluster2.1ydjnrc.mongodb.net/test")
+            .then(() => {
+                console.log(`MongoDB Connected`);
+            });    
 
     } catch (error) {
         
