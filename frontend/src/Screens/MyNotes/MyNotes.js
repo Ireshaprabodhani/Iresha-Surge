@@ -14,7 +14,7 @@ function MyNotes() {
 
 
   return (
-    <MainScreen title=" welcome back Iresha...">
+   <MainScreen title=" welcome back Iresha...">
       <Link to="createnote">
         <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
           Create New Note
@@ -34,9 +34,9 @@ function MyNotes() {
                   fontSize: 18,
                 }}
               >
-                <Accordion.onClick as={Card.Text} variant="link" eventKey="0">
+                
                   {note.title}
-                </Accordion.onClick>
+                
               </span>
 
               <div>
@@ -50,7 +50,7 @@ function MyNotes() {
                 </Button>
               </div>
             </Card.Header>
-            <Accordion.Collapse eventKey="0">
+            
               <Card.Body>
                 <h4>
                   <Badge variant="sucess">category - {note.category}</Badge>
@@ -60,12 +60,12 @@ function MyNotes() {
                   <footer className="blockquote-footer">created on-data</footer>
                 </blockquote>
               </Card.Body>
-            </Accordion.Collapse>
+          
           </Card>
         </Accordion>
       ))}
     </MainScreen>
-  );
+  )
 }
 
 export default MyNotes

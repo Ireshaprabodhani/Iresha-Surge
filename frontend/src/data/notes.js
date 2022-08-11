@@ -2,7 +2,7 @@ const notes = [
   {
     _id: "1",
     title: "ggyhuhfuf",
-    content: "xcvdguw",
+    content: "Exclusive vouchersBetter deal Personalised recommendationsEarly accessdguw",
     category: "iresha",
   },
 
