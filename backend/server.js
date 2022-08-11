@@ -1,27 +1,26 @@
 const express = require("express");
-const notes = require("./data/notes");
 const dotenv = require("dotenv");
-const connectDB = require("./config/db");
-const userRoutes = require("./routes/userRoutes");
+const connectDB = require("./config/db")
+const studentRoutes = require('./routes/studentRoutes');
+const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 
-const app = express();
-dotenv.config();
+const app = express(); 
+dotenv.config(); 
 connectDB();
 app.use(express.json());
 
 
-//app.get("/", (req, res) => {
- // res.send("API is running..");
-//});
-
-app.get("/api/notes", (req, res) => {
-  res.json(notes);
+app.get("/", (req, res) => {
+  res.send("API is running");
 });
 
-app.use("/api/notes", userRoutes);
-const PORT = process.env.PORT || 5000 //if that PORT is not available we can assign any other port
+app.use('/api/student',studentRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
 
 
-//server running in port 5000
-app.listen(PORT, console.log(`Server started on PORT ${PORT}`));
+app.listen(PORT, console.log(`Server Started on port ${PORT}..`));
