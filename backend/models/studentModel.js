@@ -37,6 +37,11 @@ const studentSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+
+    mobile: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,
@@ -46,11 +51,12 @@ const studentSchema = mongoose.Schema(
 studentSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
-
+// previous saving opeation
 studentSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
+  //after adding salt password is encrypted
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
