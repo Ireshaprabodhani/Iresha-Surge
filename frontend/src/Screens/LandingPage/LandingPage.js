@@ -11,10 +11,10 @@ const LandingPage = () => {
             <h1 className="title"> Welcome to School Notes</h1>
             <p className="subtitle">One safe place for all your notes.</p>
           </div>
-          <div>
-            <div className="buttonContainer">
+         
+            <div className="buttonContainer ">
               <a href="/login">
-                <Button size="lg" className="landingbutton">
+                <Button size="lg" className="landingbutton " >
                   Login
                 </Button>
               </a>
@@ -24,7 +24,7 @@ const LandingPage = () => {
                 </Button>
               </a>
             </div>
-          </div>
+         
         </Row>
       </Container>
     </div>
