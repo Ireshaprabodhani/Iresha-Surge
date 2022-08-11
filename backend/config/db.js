@@ -1,4 +1,9 @@
+const express = require("express");
+const app = express();
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const connectDB = async () => {
     try {
@@ -11,7 +16,7 @@ const connectDB = async () => {
                 useCreateIndex: true,
             });
 
-        console.log(`MongoDB Connected : ${conn} `);
+        console.log(`MongoDB Connected : ${conn.connection.host} `);
 
     } catch (error) {
         
@@ -19,4 +24,5 @@ const connectDB = async () => {
         process.exit();
     }
 }
-module.exports = connectDB;
+    module.exports = connectDB;
+
