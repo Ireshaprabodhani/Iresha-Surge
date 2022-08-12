@@ -31,6 +31,7 @@ const Header = ({ setSearch }) => {
                 type="text"
                 placeholder="Search"
                 className="mr-sm-2"
+                onChange={(e) => setSearch(e.target.value) }
               />
             </Form>
           </Nav>
