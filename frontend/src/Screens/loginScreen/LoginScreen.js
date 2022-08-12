@@ -5,56 +5,42 @@ import ErrorMessage from '../../components/ErrorMessage';
 import Loading from '../../components/Loading';
 import MainScreen from '../../components/MainScreen';
 import './LoginScreen.css';
+import { login } from "../../actions/UserActions"
+import { useEffect } from 'react';
+
+import { useDispatch , useSelector } from 'react-redux';
 
 const LoginScreen = ({history}) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
     const [accountType, setAccountType] = useState("");
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
+  
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
 
-
-    
-    const submitHandler = async(e) => {
-      e.preventDefault();
-      
-      if (accountType == "Student") {
-
-        try {
-          const config = {
-
-            headers: {
-              "Content-type": "application/json"
-            }
-          }
-          setLoading(true)
-
-          const { data } = await axios.post('/api/student/login',
-            {
-              email, password, accountType
-            },
-            config
-          )
-          console.log(data);
-          /*localstorage cannot store the object data . we need
-          to convert to string data */
-          localStorage.setItem('userInfo', JSON.stringify(data));
-
-          setLoading(false)
-            
-        } catch (error) {
-          setError(error.response.data.message);
-          setLoading(false);
-        }
-      }
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/mynotes");
     }
+  }, [history, userInfo]);
+    
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    
+    dispatch(login(email, password));
+      
+  };
+
+  
+ 
 
     return (
       <MainScreen title="LOGIN">
         <div div className="loginContainer">
           {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-          {loading && <Loading />}
+          {Loading && <Loading />}
           <Form onSubmit={submitHandler}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>

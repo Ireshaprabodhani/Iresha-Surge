@@ -5,11 +5,14 @@ import { Button, Dropdown, Form } from 'react-bootstrap';
 import "./RegisterScreen.css";
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/ErrorMessage';
-import axios from 'axios';
+//import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 
 
-function RegisterScreen() {
+
+const RegisterScreen = ({ history }) => {
  
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -19,24 +22,26 @@ function RegisterScreen() {
   const [accountType, setAccountType] = useState("");
   const [status, setStatus] = useState("");
 
+
+
   //if user enter wrong details
   const [password, setPassword] = useState("");
   //const [message, setMessage] = useState(null);
 
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
 
+  const dispatch = useDispatch();
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error, userInfo } = userRegister;
 
-
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/mynotes");
+    }
+  }, [history, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-   } 
-
- 
-
-
-
+  }
   return (
     <MainScreen title="REGISTER">
       Register
@@ -143,5 +148,7 @@ function RegisterScreen() {
   
   
 }
+
+
 
 export default RegisterScreen
