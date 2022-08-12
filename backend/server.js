@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db")
 const studentRoutes = require('./routes/studentRoutes');
+const noteRoutes = require("./routes/noteRoutes");
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 
@@ -15,7 +16,8 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-app.use('/api/student',studentRoutes);
+app.use('/api/student', studentRoutes);
+app.use("/api/notes",   noteRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
