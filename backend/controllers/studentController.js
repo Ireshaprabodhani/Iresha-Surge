@@ -12,7 +12,7 @@ const registerStudent = async (req, res) => {
         throw new Error("Student Already Exists");
   }
     
-    //if the user doesn't exist save data in database
+    
 
     const student = await Student.create({
       firstName,
@@ -26,26 +26,54 @@ const registerStudent = async (req, res) => {
     });
 
     if (student) {
-        res.status(201).json({
-          _id: student._id,
-          isAdmin:student.isAdmin,
-          firstName: student.firstName,
-          email: student.email,
-          lastName: student.lastName,
-          password: student.password,
-          dateOfBirth: student,dateOfBirth,
-          status: student.status,
-          accountType: student.accountType,
-          mobile : student.mobile,
-          token:generateToken(student._id)
-        })
+      res.status(201).json({
+        _id: student._id,
+        isAdmin: student.isAdmin,
+        firstName: student.firstName,
+        email: student.email,
+        lastName: student.lastName,
+        password: student.password,
+        dateOfBirth: student.dateOfBirth,
+        status: student.status,
+        accountType: student.accountType,
+        mobile: student.mobile,
+        token: generateToken(student._id),
+      });
     }
-
+    //if the user doesn't exist save data in database
     else {
-        res.status(400)
-        throw new Error('Error Occured');
+      res.status(400);
+      throw new Error("Error Occured");
     }
 
 };
 
-module.exports = {registerStudent}
+const authStudent = asyncHandler(async (req, res) => {
+  //user login
+  const { email, password } = req.body;
+
+  const student = await Student.findOne({ email });
+
+  if (student && (await student.matchPassword(password))) {
+    res.json({
+      _id: student._id,
+      isAdmin: student.isAdmin,
+      firstName: student.firstName,
+      email: student.email,
+      lastName: student.lastName,
+      password: student.password,
+      dateOfBirth: student.dateOfBirth,
+      status: student.status,
+      accountType: student.accountType,
+      mobile: student.mobile,
+      token: generateToken(student._id),
+    });
+
+    // if user does not found
+  } else {
+    res.status(400);
+    throw new Error("Invalid Email or Password");
+  }
+});
+
+module.exports = {registerStudent, authStudent}

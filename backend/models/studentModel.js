@@ -40,16 +40,16 @@ const studentSchema = mongoose.Schema(
 
     mobile: {
       type: Number,
-      required: true,
+     
     },
   },
   {
     timestamps: true,
   }
 );
-
+//password descrypted
 studentSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+  return await bcrypt.compare(enteredPassword, this.password); // compare the password from the database and the entered password
 };
 // previous saving opeation
 studentSchema.pre("save", async function (next) {
