@@ -1,19 +1,24 @@
-const asyncHandler = require('express-async-handler')
-const Student = require('../models/studentModel');
-const generateToken = require('../utils/generateToken');
+const asyncHandler = require("express-async-handler");
+const Student = require("../models/studentModel");
+const generateToken = require("../utils/generateToken");
 
 const registerStudent = async (req, res) => {
-    const { firstName, lastName, email, password, dateOfBirth, status, accountType , mobile} = req.body;
-    
-  // check if the user already exist in the database
-    const studentExists = await Student.findOne({ email });
-    if (studentExists) {
-        res.status(400);
-        throw new Error("Student Already Exists");
-  }
-    
-    
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    dateOfBirth,
+    status,
+    accountType,
+    mobile,
+  } = req.body;
 
+  // check if the user already exist in the database
+  const studentExists = await Student.findOne({ email });
+  if (studentExists) {
+    res.status(400).json("Student Already Exists");
+  } else {
     const student = await Student.create({
       firstName,
       email,
@@ -45,7 +50,7 @@ const registerStudent = async (req, res) => {
       res.status(400);
       throw new Error("Error Occured");
     }
-
+  }
 };
 
 const authStudent = asyncHandler(async (req, res) => {
@@ -76,4 +81,4 @@ const authStudent = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = {registerStudent, authStudent}
+module.exports = { registerStudent, authStudent };

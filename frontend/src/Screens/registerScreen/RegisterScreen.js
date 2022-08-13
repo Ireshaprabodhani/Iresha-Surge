@@ -1,19 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import "./RegisterScreen.css";
 import MainScreen from "../../components/MainScreen";
-import { Button, Dropdown, Form } from 'react-bootstrap';
+import { Button, Form } from "react-bootstrap";
 import "./RegisterScreen.css";
-import Loading from '../../components/Loading';
-import ErrorMessage from '../../components/ErrorMessage';
+import Loading from "../../components/Loading";
+import ErrorMessage from "../../components/ErrorMessage";
 //import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../actions/UserActions";
 import { useEffect } from "react";
-
-
-
+//const axios = require("axios").default;
 
 const RegisterScreen = ({ history }) => {
- 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,12 +20,9 @@ const RegisterScreen = ({ history }) => {
   const [accountType, setAccountType] = useState("");
   const [status, setStatus] = useState("");
 
-
-
   //if user enter wrong details
   const [password, setPassword] = useState("");
   //const [message, setMessage] = useState(null);
-
 
   const dispatch = useDispatch();
   const userRegister = useSelector((state) => state.userRegister);
@@ -41,7 +36,19 @@ const RegisterScreen = ({ history }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-  }
+    dispatch(
+      register(
+        firstName,
+        lastName,
+        password,
+        email,
+        mobile,
+        status,
+        accountType,
+        dateOfBirth
+      )
+    );
+  };
   return (
     <MainScreen title="REGISTER">
       Register
@@ -120,22 +127,15 @@ const RegisterScreen = ({ history }) => {
           </Form.Group>
 
           <Form.Group>
-            <Dropdown>
-              <Dropdown.Toggle
-                variant="success"
-                id="dropdown-basic"
-                
-                value={accountType}
-                onChange={(e) => setAccountType(e.target.value)}
-              >
-                Account Type
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item href="">Admin</Dropdown.Item>
-                <Dropdown.Item href="">Student</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <Form.Select
+              aria-label="Default select example"
+              value={accountType}
+              onChange={(e) => setAccountType(e.target.value)}
+            >
+              <option>Account Type</option>
+              <option value="Student">Student</option>
+              <option value="Admin">Admin</option>
+            </Form.Select>
           </Form.Group>
 
           <Button variant="primary" type="submit">
@@ -145,10 +145,6 @@ const RegisterScreen = ({ history }) => {
       </div>
     </MainScreen>
   );
-  
-  
-}
+};
 
-
-
-export default RegisterScreen
+export default RegisterScreen;
