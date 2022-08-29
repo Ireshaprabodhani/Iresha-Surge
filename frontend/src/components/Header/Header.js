@@ -15,7 +15,7 @@ const Header = ({ setSearch }) => {
 
   const logoutHandler = () => {
     dispatch(logout());
-    history.push("/");
+    history("/");
   };
   return (
     <Navbar bg="primary" expand="lg" variant="dark">

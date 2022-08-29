@@ -27,13 +27,12 @@ export const listNotes = () => async (dispatch, getState) => {
     } = getState();
 
     const config = {
-        headers: {
-          
+      headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }; //token check
 
-    const { data } = await axios.get(`/api/notes`, config);
+    const { data } = await axios.get(`http://localhost:5000/api/notes`, config);
 
     dispatch({
       type: NOTES_LIST_SUCCESS,
@@ -70,7 +69,7 @@ export const createNoteAction =
       };
 
       const { data } = await axios.post(
-        `/api/notes/create`,
+        `http://localhost:5000/api/notes/create`,
         { title, description, category },
         config
       );
@@ -107,7 +106,10 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.delete(`/api/notes/${id}`, config);
+    const { data } = await axios.delete(
+      `http://localhost:5000/api/notes/${id}`,
+      config
+    );
 
     dispatch({
       type: NOTES_DELETE_SUCCESS,
@@ -144,7 +146,7 @@ export const updateNoteAction =
       };
 
       const { data } = await axios.put(
-        `/api/notes/${id}`,
+        `http://localhost:5000/api/notes/${id}`,
         { title, description, category },
         config
       );

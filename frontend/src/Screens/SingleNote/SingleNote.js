@@ -54,7 +54,7 @@ function SingleNote({ match, history }) {
     if (!title || !description || !category) return;
 
     resetHandler();
-    history.push("/mynotes");
+    history("/mynotes");
   };
 
   return (
@@ -88,13 +88,12 @@ function SingleNote({ match, history }) {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </Form.Group>
-               <Card>
-                <Card.Header>Note Preview</Card.Header>
-                <Card.Body>
-                  <ReactMarkdown>{description}</ReactMarkdown>
-                </Card.Body>
-              </Card>
-            
+            <Card>
+              <Card.Header>Note Preview</Card.Header>
+              <Card.Body>
+                <ReactMarkdown>{description}</ReactMarkdown>
+              </Card.Body>
+            </Card>
 
             <Form.Group controlId="content">
               <Form.Label>Category</Form.Label>

@@ -6,6 +6,7 @@ import MainScreen from "../../components/MainScreen";
 import "./LoginScreen.css";
 import { login } from "../../actions/UserActions";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,15 +14,15 @@ const LoginScreen = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [accountType, setAccountType] = useState("");
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
-  const { error, userInfo } = userLogin;
+  const { loading, error, userInfo } = userLogin;
 
   useEffect(() => {
     if (userInfo) {
-      console.log("aaa");
-      history.push("/mynotes");
+      navigate("/mynotes");
     }
   }, [history, userInfo]);
 
@@ -35,7 +36,7 @@ const LoginScreen = ({ history }) => {
     <MainScreen title="LOGIN">
       <div div className="loginContainer">
         {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-        {Loading && <Loading />}
+        {loading && <Loading />}
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>

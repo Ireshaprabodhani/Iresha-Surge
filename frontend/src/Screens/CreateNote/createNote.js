@@ -32,10 +32,8 @@ function CreateNote({ history }) {
     dispatch(createNoteAction(title, description, category));
 
     resetHandler();
-    history.push("/mynotes");
+    history("/mynotes");
   };
-
-  useEffect(() => {}, []);
 
   return (
     <MainScreen title="Create a Note">
